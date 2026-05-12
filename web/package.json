@@ -1,0 +1,20 @@
+{
+  "name": "ebpf-trigger-observatory-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "socket.io-client": "4.8.3",
+    "xterm": "5.3.0",
+    "xterm-addon-fit": "0.8.0"
+  },
+  "devDependencies": {
+    "vite": "6.1.0"
+  }
+}

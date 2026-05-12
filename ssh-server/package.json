@@ -1,0 +1,13 @@
+{
+  "name": "ebpf-trigger-observatory-ssh-server",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "5.2.1",
+    "socket.io": "4.8.3",
+    "ssh2": "1.17.0"
+  }
+}

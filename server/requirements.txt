@@ -1,0 +1,3 @@
+# Server layer dependencies for the eBPF Trigger Observatory
+# The current implementation relies only on the Python standard library.
+# Pin the runtime interpreter version externally if needed.
