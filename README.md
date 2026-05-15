@@ -36,7 +36,8 @@ cd web
 npm install
 npm run dev
 
-VITE_API_BASE_URL=http://38.207.189.106:8082  VITE_SSH_SOCKET_URL=http://127.0.0.1:4000 npm run dev -- --host 0.0.0.0
+# 如果需手动指定参数，请使用下面命令携带参数启动
+VITE_API_BASE_URL=http://38.207.189.106:8080  VITE_SSH_SOCKET_URL=http://127.0.0.1:4000 npm run dev -- --host 0.0.0.0
 ```
 
 Open the app in your browser at the Vite URL shown in the terminal, usually:
