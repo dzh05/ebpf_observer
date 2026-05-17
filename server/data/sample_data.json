@@ -1,0 +1,108 @@
+{
+  "overview": {
+    "events24h": 128,
+    "activeRules": 3,
+    "uniqueSources": 17,
+    "dropRatio": "14%"
+  },
+  "trend": [
+    { "label": "00:00", "value": 8 },
+    { "label": "04:00", "value": 12 },
+    { "label": "08:00", "value": 26 },
+    { "label": "12:00", "value": 34 },
+    { "label": "16:00", "value": 22 },
+    { "label": "20:00", "value": 14 }
+  ],
+  "topRules": [
+    { "name": "udp-fixed-length-lab", "hits": 64 },
+    { "name": "marker-prefix-demo", "hits": 41 },
+    { "name": "passive-sample-profile", "hits": 23 }
+  ],
+  "events": [
+    {
+      "id": "evt_20260417_0016",
+      "time": "2026-04-17 16:10:21",
+      "source": "192.168.56.12:53001",
+      "destination": "192.168.56.10:9000",
+      "rule": "udp-fixed-length-lab",
+      "action": "DROP",
+      "payloadLength": 200,
+      "preview": "HACKE_BY_PUTAO  demo-lab",
+      "hash": "sha256:7c4f...ab91"
+    },
+    {
+      "id": "evt_20260417_0017",
+      "time": "2026-04-17 16:12:43",
+      "source": "192.168.56.18:44210",
+      "destination": "192.168.56.10:9000",
+      "rule": "marker-prefix-demo",
+      "action": "SAMPLE_ONLY",
+      "payloadLength": 128,
+      "preview": "LAB_MARKER alpha sample",
+      "hash": "sha256:2fd1...9b3e"
+    },
+    {
+      "id": "evt_20260417_0018",
+      "time": "2026-04-17 16:18:05",
+      "source": "192.168.56.23:38011",
+      "destination": "192.168.56.10:53",
+      "rule": "passive-sample-profile",
+      "action": "PASS",
+      "payloadLength": 88,
+      "preview": "DNS-like trigger rehearsal",
+      "hash": "sha256:c1e2...0fa1"
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule_001",
+      "name": "udp-fixed-length-lab",
+      "status": "Enabled",
+      "action": "DROP",
+      "match": "UDP, start marker, exact length 200",
+      "note": "Used to demonstrate early-path classification and controlled packet suppression."
+    },
+    {
+      "id": "rule_002",
+      "name": "marker-prefix-demo",
+      "status": "Enabled",
+      "action": "SAMPLE_ONLY",
+      "match": "UDP, preview prefix match, analyst review",
+      "note": "Keeps packets flowing while capturing evidence for later analysis."
+    },
+    {
+      "id": "rule_003",
+      "name": "passive-sample-profile",
+      "status": "Disabled",
+      "action": "PASS",
+      "match": "Lab-only placeholder profile",
+      "note": "Reserved for baseline comparison experiments."
+    }
+  ],
+  "audit": [
+    {
+      "id": "audit_001",
+      "time": "2026-04-17 15:55:08",
+      "actor": "researcher",
+      "action": "Updated rule action",
+      "target": "udp-fixed-length-lab",
+      "summary": "Changed action from SAMPLE_ONLY to DROP for a controlled lab replay."
+    },
+    {
+      "id": "audit_002",
+      "time": "2026-04-17 15:41:14",
+      "actor": "researcher",
+      "action": "Created rule",
+      "target": "marker-prefix-demo",
+      "summary": "Added a non-blocking marker profile for evidence collection."
+    },
+    {
+      "id": "audit_003",
+      "time": "2026-04-17 15:33:55",
+      "actor": "researcher",
+      "action": "Viewed event detail",
+      "target": "evt_20260417_0018",
+      "summary": "Inspected matched conditions and preview hash for a suspicious UDP sample."
+    }
+  ]
+}

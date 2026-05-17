@@ -1,0 +1,62 @@
+{
+  "agents": {
+    "test": {
+      "agent_id": "test",
+      "host_id": "test",
+      "hostname": "test",
+      "version": "0.1.0",
+      "registered_at": "2026-04-26T10:46:41.219101+00:00",
+      "last_seen_at": "2026-04-26T10:47:50.413143+00:00",
+      "healthy": true,
+      "queue_depth": 0,
+      "host_external_ip": ""
+    }
+  },
+  "heartbeats": [
+    {
+      "id": "hb_7b8f48f394a1465ab19b2d7f2429c680",
+      "agent_id": "test",
+      "timestamp_ns": 1777196941520478779,
+      "healthy": true,
+      "queue_depth": 0,
+      "received_at": "2026-04-26T10:47:50.413143+00:00"
+    }
+  ],
+  "event_batches": [
+    {
+      "id": "batch_34c9929cd78341a0b8f3702f6cffd24c",
+      "agent_id": "test",
+      "sequence": 14,
+      "host_external_ip": "117.72.171.43",
+      "received_at": "2026-04-26T10:46:53.005981+00:00",
+      "event_count": 1
+    }
+  ],
+  "events": [
+    {
+      "id": "evt_b19483bec7c84e80a89c69b8d801cb51",
+      "batch_id": "batch_34c9929cd78341a0b8f3702f6cffd24c",
+      "agent_id": "test",
+      "sequence": 14,
+      "event_index": 0,
+      "host_external_ip": "117.72.171.43",
+      "received_at": "2026-04-26T10:46:53.005981+00:00",
+      "event_type": "NET_TIMEOUT",
+      "timestamp_ns": 165780858082234,
+      "pid": 1962,
+      "tid": 1970,
+      "uid": 0,
+      "comm": "jdog-kunlunmirr",
+      "direction": "outbound",
+      "protocol": "tcp",
+      "local_ip": "172.16.0.6",
+      "local_port": 80,
+      "remote_ip": "210.116.111.29",
+      "remote_port": 20665,
+      "cgroup_id": 2604
+    }
+  ],
+  "last_sequences": {
+    "test": 14
+  }
+}
