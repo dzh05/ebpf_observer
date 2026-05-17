@@ -1,3 +1,56 @@
+# 说明
+
+
+- 此项目包括三个子项目
+- server提供后端数据持久化和API
+- web提供前端页面
+- ssh-server提供ssh服务器
+
+
+# 部署
+
+## 安装依赖
+```bash
+cd web
+npm install
+
+cd ssh-server
+npm install
+```
+
+
+
+## 推荐使用pm2工具进行持久化
+
+### 本实验机器已经安装并配置好pm2，如果没有，请按照以下方法进行
+```bash
+# 安装 PM2
+npm install -g pm2
+
+# 用 PM2 启动项目
+pm2 start npm --name "web" -- run dev
+
+# 设置开机自启
+pm2 startup
+pm2 save
+
+pm2 list          # 查看运行中的项目
+pm2 logs web      # 查看日志
+pm2 restart web   # 重启
+pm2 stop web      # 停止
+
+pm2 start python3 --name "app" -- app.py
+pm2 save
+
+pm2 start npm --name "ssh" -- start
+pm2 save
+
+```
+
+
+
+
+
 # eBPF Trigger Observatory
 
 A lab-oriented observability project that combines:
