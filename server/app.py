@@ -15,7 +15,7 @@ from api.runtime import init_db  # noqa: E402
 
 def main():
     init_db()
-    server = ThreadingHTTPServer(("0.0.0.1", 8080), AppHandler)
+    server = ThreadingHTTPServer(("0.0.0.0", 8080), AppHandler)
     print("eBPF Trigger Observatory API listening on http://0.0.0.0:8080")
     server.serve_forever()
 
