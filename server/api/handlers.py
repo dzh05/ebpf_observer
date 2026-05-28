@@ -5,7 +5,6 @@ from urllib.parse import parse_qs, urlparse
 
 from .runtime import (
     get_db_connection,
-    init_db,
     json_bytes,
     load_data,
     normalize_bool,
@@ -18,6 +17,10 @@ from .runtime import (
 
 class AppHandler(BaseHTTPRequestHandler):
     server_version = "ETOHTTP/0.2"
+    MAX_LIST_ITEMS = 50
+
+    def _limit_items(self, items):
+        return items[: self.MAX_LIST_ITEMS]
 
     def do_OPTIONS(self):
         self.send_response(204)
@@ -93,7 +96,7 @@ class AppHandler(BaseHTTPRequestHandler):
                     ORDER BY r.last_seen_at DESC
                     """
                 ).fetchall()
-            items = [self._row_to_agent(row) for row in rows]
+            items = self._limit_items([self._row_to_agent(row) for row in rows])
             self.respond_json(200, {"items": items})
             return
 
@@ -137,7 +140,7 @@ class AppHandler(BaseHTTPRequestHandler):
                 rows = connection.execute(
                     "SELECT id, agent_id, timestamp_ns, healthy, queue_depth, received_at FROM agent_heartbeats ORDER BY received_at DESC"
                 ).fetchall()
-            self.respond_json(200, {"items": [self._row_to_heartbeat(row) for row in rows]})
+            self.respond_json(200, {"items": self._limit_items([self._row_to_heartbeat(row) for row in rows])})
             return
 
         if parsed.path == "/api/events":
@@ -145,7 +148,7 @@ class AppHandler(BaseHTTPRequestHandler):
                 rows = connection.execute(
                     "SELECT * FROM agent_events ORDER BY received_at DESC"
                 ).fetchall()
-            self.respond_json(200, {"items": [self._decode_agent_event_row(row) for row in rows]})
+            self.respond_json(200, {"items": self._limit_items([self._decode_agent_event_row(row) for row in rows])})
             return
 
         if parsed.path.startswith("/api/events/"):
@@ -168,7 +171,7 @@ class AppHandler(BaseHTTPRequestHandler):
             return
 
         if parsed.path == "/rules":
-            self.respond_json(200, {"items": data["rules"]})
+            self.respond_json(200, {"items": self._limit_items(data["rules"])})
             return
 
         if parsed.path.startswith("/rules/"):
@@ -192,7 +195,7 @@ class AppHandler(BaseHTTPRequestHandler):
             if rule:
                 items = [item for item in items if item["rule"] == rule]
 
-            self.respond_json(200, {"items": items})
+            self.respond_json(200, {"items": self._limit_items(items)})
             return
 
         if parsed.path.startswith("/events/"):
@@ -432,6 +435,9 @@ class AppHandler(BaseHTTPRequestHandler):
                 (received_at, agent_id),
             )
         self.respond_json(200, {"ok": True, "eventCount": len(normalized_events), "sequence": sequence})
+
+    def _limit_items(self, items):
+        return items[: self.MAX_LIST_ITEMS]
 
     def _row_to_agent(self, row):
         payload = dict(row)
